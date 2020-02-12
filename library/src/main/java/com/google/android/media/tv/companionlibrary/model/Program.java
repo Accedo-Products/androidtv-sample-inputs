@@ -29,14 +29,14 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /** A convenience class to create and insert program information into the database. */
-public final class Program implements Comparable<Program> {
+public class Program implements Comparable<Program> {
     /** @hide */
     public static final String[] PROJECTION = getProjection();
 
-    private static final long INVALID_LONG_VALUE = -1;
-    private static final int INVALID_INT_VALUE = -1;
-    private static final int IS_RECORDING_PROHIBITED = 1;
-    private static final int IS_SEARCHABLE = 1;
+    public static final long INVALID_LONG_VALUE = -1;
+    public static final int INVALID_INT_VALUE = -1;
+    public static final int IS_RECORDING_PROHIBITED = 1;
+    public static final int IS_SEARCHABLE = 1;
 
     private long mId;
     private long mChannelId;
@@ -61,7 +61,7 @@ public final class Program implements Comparable<Program> {
     private int mSearchable;
     private String mSeasonTitle;
 
-    private Program() {
+    protected Program() {
         mChannelId = INVALID_LONG_VALUE;
         mId = INVALID_LONG_VALUE;
         mStartTimeUtcMillis = INVALID_LONG_VALUE;
@@ -557,7 +557,7 @@ public final class Program implements Comparable<Program> {
         return builder.build();
     }
 
-    private static String[] getProjection() {
+    public static String[] getProjection() {
         String[] baseColumns =
                 new String[] {
                     TvContract.Programs._ID,

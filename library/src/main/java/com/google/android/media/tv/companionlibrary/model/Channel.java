@@ -25,13 +25,13 @@ import android.text.TextUtils;
 import com.google.android.media.tv.companionlibrary.utils.CollectionUtils;
 
 /** A convenience class to create and insert channel entries into the database. */
-public final class Channel {
+public class Channel {
     /** @hide */
     public static final String[] PROJECTION = getProjection();
 
-    private static final long INVALID_CHANNEL_ID = -1;
-    private static final int INVALID_INTEGER_VALUE = -1;
-    private static final int IS_SEARCHABLE = 1;
+    public static final long INVALID_CHANNEL_ID = -1;
+    public static final int INVALID_INTEGER_VALUE = -1;
+    public static final int IS_SEARCHABLE = 1;
 
     private long mId;
     private String mPackageName;
@@ -55,7 +55,7 @@ public final class Channel {
     private int mSearchable;
     private String mServiceType;
 
-    private Channel() {
+    protected Channel() {
         mId = INVALID_CHANNEL_ID;
         mOriginalNetworkId = INVALID_INTEGER_VALUE;
         mServiceType = TvContract.Channels.SERVICE_TYPE_AUDIO_VIDEO;
@@ -417,7 +417,7 @@ public final class Channel {
         return builder.build();
     }
 
-    private static String[] getProjection() {
+    public static String[] getProjection() {
         String[] baseColumns =
                 new String[] {
                     TvContract.Channels._ID,
