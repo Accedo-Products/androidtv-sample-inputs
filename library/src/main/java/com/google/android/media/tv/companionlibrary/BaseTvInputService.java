@@ -40,12 +40,14 @@ import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.util.LongSparseArray;
 import android.view.Surface;
+
 import com.google.android.media.tv.companionlibrary.model.Advertisement;
 import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.model.ModelUtils;
 import com.google.android.media.tv.companionlibrary.model.Program;
 import com.google.android.media.tv.companionlibrary.model.RecordedProgram;
 import com.google.android.media.tv.companionlibrary.utils.Constants;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -195,7 +197,15 @@ public abstract class BaseTvInputService extends TvInputService {
         private Surface mSurface;
         private float mVolume = 1.0f;
 
+        /**
+         * @deprecated This class doesn't require inputId. Use {@link Session#Session(Context)} instead.
+         */
+        @Deprecated
         public Session(Context context, String inputId) {
+            this(context);
+        }
+
+        public Session(Context context) {
             super(context);
             this.mContext = context;
             mTvInputManager = (TvInputManager) context.getSystemService(Context.TV_INPUT_SERVICE);
@@ -372,7 +382,7 @@ public abstract class BaseTvInputService extends TvInputService {
                             .seekTo(
                                     (timeMs - mRecordedPlaybackStartTime)
                                             + (recordingStartTime
-                                                    - mCurrentProgram.getStartTimeUtcMillis()));
+                                            - mCurrentProgram.getStartTimeUtcMillis()));
                 } else {
                     mTimeShiftedPlaybackPosition = timeMs;
                     // Elapsed ad time and program time will need to be recalculated
@@ -440,12 +450,12 @@ public abstract class BaseTvInputService extends TvInputService {
                                 TAG,
                                 "Total elapsed time: "
                                         + (mTimeShiftedPlaybackPosition
-                                                - mCurrentProgram.getStartTimeUtcMillis()));
+                                        - mCurrentProgram.getStartTimeUtcMillis()));
                         Log.d(
                                 TAG,
                                 "Time shift difference: "
                                         + (System.currentTimeMillis()
-                                                - mTimeShiftedPlaybackPosition));
+                                        - mTimeShiftedPlaybackPosition));
                         Log.d(TAG, "============================");
                     }
                     return getCurrentTime();
@@ -488,7 +498,8 @@ public abstract class BaseTvInputService extends TvInputService {
          *
          * @param rating The rating for the program that was blocked.
          */
-        public void onBlockContent(TvContentRating rating) {}
+        public void onBlockContent(TvContentRating rating) {
+        }
 
         @Override
         public void onUnblockContent(TvContentRating rating) {
@@ -508,8 +519,8 @@ public abstract class BaseTvInputService extends TvInputService {
         private boolean checkCurrentProgramContent() {
             mCurrentContentRatingSet =
                     (mCurrentProgram == null
-                                    || mCurrentProgram.getContentRatings() == null
-                                    || mCurrentProgram.getContentRatings().length == 0)
+                            || mCurrentProgram.getContentRatings() == null
+                            || mCurrentProgram.getContentRatings().length == 0)
                             ? null
                             : mCurrentProgram.getContentRatings();
             return blockContentIfNeeded();
@@ -655,7 +666,7 @@ public abstract class BaseTvInputService extends TvInputService {
                 // Get the last played ad time for this channel.
                 long mostRecentOnTuneAdWatchedTime =
                         mContext.getSharedPreferences(
-                                        Constants.PREFERENCES_FILE_KEY, Context.MODE_PRIVATE)
+                                Constants.PREFERENCES_FILE_KEY, Context.MODE_PRIVATE)
                                 .getLong(
                                         Constants.SHARED_PREFERENCES_KEY_LAST_CHANNEL_AD_PLAY
                                                 + mCurrentChannel.getId(),
@@ -663,7 +674,7 @@ public abstract class BaseTvInputService extends TvInputService {
                 List<Advertisement> ads = mCurrentChannel.getInternalProviderData().getAds();
                 if (!ads.isEmpty()
                         && System.currentTimeMillis() - mostRecentOnTuneAdWatchedTime
-                                > mMinimumOnTuneAdInterval) {
+                        > mMinimumOnTuneAdInterval) {
                     // There is at most one advertisement in the channel.
                     playAd = mHandler.obtainMessage(MSG_PLAY_AD, ads.get(0));
                 }
@@ -720,7 +731,9 @@ public abstract class BaseTvInputService extends TvInputService {
             }
         }
 
-        /** Return the current {@link TvPlayer}. */
+        /**
+         * Return the current {@link TvPlayer}.
+         */
         public abstract TvPlayer getTvPlayer();
 
         /**
@@ -729,7 +742,7 @@ public abstract class BaseTvInputService extends TvInputService {
          * null}. Developers should check the null condition and handle that case, possibly by
          * manually resyncing the EPG.
          *
-         * @param program The program that is set to be playing for a the currently tuned channel.
+         * @param program    The program that is set to be playing for a the currently tuned channel.
          * @param startPosMs Start position of content video.
          * @return Whether playing this program was successful.
          */
@@ -740,7 +753,7 @@ public abstract class BaseTvInputService extends TvInputService {
          * program does not exist, the parameter will be {@code null}.
          *
          * @param recordedProgram The program that is set to be playing for a the currently tuned
-         *     channel.
+         *                        channel.
          * @return Whether playing this program was successful
          */
         public abstract boolean onPlayRecordedProgram(RecordedProgram recordedProgram);
@@ -867,7 +880,7 @@ public abstract class BaseTvInputService extends TvInputService {
                     // value is stored in SharedPreferences to persist between sessions.
                     SharedPreferences.Editor editor =
                             mContext.getSharedPreferences(
-                                            Constants.PREFERENCES_FILE_KEY, Context.MODE_PRIVATE)
+                                    Constants.PREFERENCES_FILE_KEY, Context.MODE_PRIVATE)
                                     .edit();
                     editor.putLong(
                             Constants.SHARED_PREFERENCES_KEY_LAST_CHANNEL_AD_PLAY

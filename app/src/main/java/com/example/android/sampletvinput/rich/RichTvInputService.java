@@ -35,6 +35,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.accessibility.CaptioningManager;
+
 import com.example.android.sampletvinput.R;
 import com.example.android.sampletvinput.SampleJobService;
 import com.example.android.sampletvinput.player.DemoPlayer;
@@ -53,6 +54,7 @@ import com.google.android.media.tv.companionlibrary.model.Program;
 import com.google.android.media.tv.companionlibrary.model.RecordedProgram;
 import com.google.android.media.tv.companionlibrary.sync.EpgSyncJobService;
 import com.google.android.media.tv.companionlibrary.utils.TvContractUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,7 +124,7 @@ public class RichTvInputService extends BaseTvInputService {
         private Context mContext;
 
         RichTvInputSessionImpl(Context context, String inputId) {
-            super(context, inputId);
+            super(context);
             mCaptionEnabled = mCaptioningManager.isEnabled();
             mContext = context;
             mInputId = inputId;

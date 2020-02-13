@@ -24,6 +24,7 @@ import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseArray;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -32,7 +33,7 @@ import java.net.URL;
 import java.util.Map;
 
 /** Static helper methods for working with {@link android.media.tv.TvContract}. */
-public final class TvContractUtils {
+public class TvContractUtils {
 
     /** Indicates that no source type has been defined for this video yet */
     public static final int SOURCE_TYPE_INVALID = -1;

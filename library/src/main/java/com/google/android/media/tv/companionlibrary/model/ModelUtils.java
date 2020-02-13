@@ -28,7 +28,9 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.LongSparseArray;
+
 import com.google.android.media.tv.companionlibrary.utils.TvContractUtils.InsertLogosTask;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -36,7 +38,7 @@ import java.util.List;
 import java.util.Map;
 
 /** Static utils for data model classes */
-public final class ModelUtils {
+public class ModelUtils {
     private static final String TAG = "ModelUtils";
     private static final boolean DEBUG = false;
 
