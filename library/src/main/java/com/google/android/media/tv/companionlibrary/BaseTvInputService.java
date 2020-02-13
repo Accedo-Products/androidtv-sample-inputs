@@ -198,7 +198,7 @@ public abstract class BaseTvInputService extends TvInputService {
         private float mVolume = 1.0f;
 
         /**
-         * @deprecated This class doesn't require inputId. Use {@link Session#Session(Context)} instead.
+         * @deprecated This class doesn't require inputId. Use {@link #Session(Context)} instead.
          */
         @Deprecated
         public Session(Context context, String inputId) {
